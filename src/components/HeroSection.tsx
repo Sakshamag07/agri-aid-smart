@@ -1,9 +1,15 @@
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ArrowRight, PlayCircle, Smartphone, Mic } from "lucide-react";
 import heroImage from "@/assets/hero-agriculture.jpg";
+import ChatbotModal from "@/components/ChatbotModal";
+import AdvisoryModal from "@/components/AdvisoryModal";
 
 const HeroSection = () => {
+  const [showChatbot, setShowChatbot] = useState(false);
+  const [showAdvisory, setShowAdvisory] = useState(false);
+
   return (
     <section className="relative py-20 md:py-32 overflow-hidden">
       {/* Background gradient */}
@@ -29,13 +35,23 @@ const HeroSection = () => {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button variant="hero" size="lg" className="text-lg px-8">
+              <Button 
+                variant="hero" 
+                size="lg" 
+                className="text-lg px-8"
+                onClick={() => setShowAdvisory(true)}
+              >
                 Start Free Advisory
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Button>
-              <Button variant="outline" size="lg" className="text-lg px-8">
+              <Button 
+                variant="outline" 
+                size="lg" 
+                className="text-lg px-8"
+                onClick={() => setShowChatbot(true)}
+              >
                 <PlayCircle className="mr-2 w-5 h-5" />
-                Watch Demo
+                Try Chatbot
               </Button>
             </div>
 
@@ -71,6 +87,9 @@ const HeroSection = () => {
           </div>
         </div>
       </div>
+      
+      <ChatbotModal open={showChatbot} onOpenChange={setShowChatbot} />
+      <AdvisoryModal open={showAdvisory} onOpenChange={setShowAdvisory} />
     </section>
   );
 };

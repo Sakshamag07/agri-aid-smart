@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -12,8 +13,15 @@ import {
   MessageSquare
 } from "lucide-react";
 import dashboardPreview from "@/assets/dashboard-preview.jpg";
+import ImageUploadModal from "@/components/ImageUploadModal";
+import ChatbotModal from "@/components/ChatbotModal";
+import AdvisoryModal from "@/components/AdvisoryModal";
 
 const DashboardPreview = () => {
+  const [showImageUpload, setShowImageUpload] = useState(false);
+  const [showChatbot, setShowChatbot] = useState(false);
+  const [showAdvisory, setShowAdvisory] = useState(false);
+
   return (
     <section className="py-20">
       <div className="container">
@@ -123,15 +131,27 @@ const DashboardPreview = () => {
                 <CardTitle className="text-lg">Quick Actions</CardTitle>
               </CardHeader>
               <CardContent className="space-y-3">
-                <Button variant="outline" className="w-full justify-start">
+                <Button 
+                  variant="outline" 
+                  className="w-full justify-start"
+                  onClick={() => setShowImageUpload(true)}
+                >
                   <Upload className="w-4 h-4 mr-2" />
                   Upload Crop Photo
                 </Button>
-                <Button variant="outline" className="w-full justify-start">
+                <Button 
+                  variant="outline" 
+                  className="w-full justify-start"
+                  onClick={() => setShowChatbot(true)}
+                >
                   <MessageSquare className="w-4 h-4 mr-2" />
                   Ask Advisory Question
                 </Button>
-                <Button variant="hero" className="w-full">
+                <Button 
+                  variant="hero" 
+                  className="w-full"
+                  onClick={() => setShowAdvisory(true)}
+                >
                   Get Today's Recommendations
                 </Button>
               </CardContent>
@@ -139,6 +159,10 @@ const DashboardPreview = () => {
           </div>
         </div>
       </div>
+      
+      <ImageUploadModal open={showImageUpload} onOpenChange={setShowImageUpload} />
+      <ChatbotModal open={showChatbot} onOpenChange={setShowChatbot} />
+      <AdvisoryModal open={showAdvisory} onOpenChange={setShowAdvisory} />
     </section>
   );
 };
